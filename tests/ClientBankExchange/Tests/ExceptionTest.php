@@ -1,4 +1,5 @@
 <?php
+
 namespace Kily\Tools1C\Tests\ClientBankExchange;
 
 use Kily\Tools1C\ClientBankExchange\Exception;
@@ -11,8 +12,9 @@ class ExceptionTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Kily\Tools1C\ClientBankExchange\Exception::__construct
      */
-    public function test__construct() {
-        $e = new Exception('some str with {{replace}}',['{{replace}}'=>'number 1']);
-        $this->assertEquals('some str with number 1',$e->getMessage());
+    public function test__construct()
+    {
+        $e = new Exception('some str with {{replace}}', ['{{replace}}' => 'number 1']);
+        $this->assertEquals('some str with number 1', $e->getMessage());
     }
 }

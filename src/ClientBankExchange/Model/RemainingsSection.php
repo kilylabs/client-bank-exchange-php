@@ -6,7 +6,8 @@ use Kily\Tools1C\ClientBankExchange\Component;
 
 class RemainingsSection extends Component
 {
-    static public function fields() {
+    public static function fields()
+    {
         return [
             'ДатаНачала',
             'ДатаКонца',
@@ -18,14 +19,20 @@ class RemainingsSection extends Component
         ];
     }
 
-    public function __construct($data=[]) {
+    public function __construct($data = [])
+    {
         parent::__construct($data);
 
-        foreach(['ДатаНачала','ДатаКонца'] as $k)
-            if($this->data[$k]) $this->data[$k] = $this->toDate($this->data[$k]);
+        foreach (['ДатаНачала', 'ДатаКонца'] as $k) {
+            if ($this->data[$k]) {
+                $this->data[$k] = $this->toDate($this->data[$k]);
+            }
+        }
 
-        foreach(['НачальныйОстаток','ВсегоПоступило','ВсегоСписано','КонечныйОстаток'] as $k)
-            if($this->data[$k]) $this->data[$k] = $this->toFloat($this->data[$k]);
+        foreach (['НачальныйОстаток', 'ВсегоПоступило', 'ВсегоСписано', 'КонечныйОстаток'] as $k) {
+            if ($this->data[$k]) {
+                $this->data[$k] = $this->toFloat($this->data[$k]);
+            }
+        }
     }
-
 }

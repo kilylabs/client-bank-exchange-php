@@ -6,7 +6,7 @@ use Kily\Tools1C\ClientBankExchange\Component;
 
 class FilterSection extends Component
 {
-    static public function fields()
+    public static function fields()
     {
         return [
             'ДатаНачала',
@@ -15,5 +15,4 @@ class FilterSection extends Component
             'Документ',
         ];
     }
-
 }

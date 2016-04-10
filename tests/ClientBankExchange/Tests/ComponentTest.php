@@ -1,4 +1,5 @@
 <?php
+
 namespace Kily\Tools1C\Tests\ClientBankExchange;
 
 use Kily\Tools1C\ClientBankExchange\Component;
@@ -20,7 +21,7 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
      */
     public function testFields()
     {
-        $this->assertEquals(Component::fields(),[]);
+        $this->assertEquals(Component::fields(), []);
     }
 
     /**
@@ -46,7 +47,7 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
      */
     public function test__isset()
     {
-        $this->assertEquals(isset($this->object->{'Номер'}),false);
+        $this->assertEquals(isset($this->object->{'Номер'}), false);
     }
 
     /**
@@ -71,7 +72,7 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetExists()
     {
-        $this->assertEquals(isset($this->object['Номер']),false);
+        $this->assertEquals(isset($this->object['Номер']), false);
     }
 
     /**
@@ -95,52 +96,57 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Kily\Tools1C\ClientBankExchange\Component::toDate
      */
-    public function testToDate() {
-        $m = self::getMethod('toDate',$this->object);
-        $this->assertEquals('2015-12-01',$m->invokeArgs($this->object,['01.12.2015']));
-        $this->assertEquals('2015-01-01',$m->invokeArgs($this->object,['1.1.2015']));
-        $this->assertEquals(null,$m->invokeArgs($this->object,[null]));
-        $this->assertNotEquals('2015-01-01',$m->invokeArgs($this->object,['1.1.15']));
+    public function testToDate()
+    {
+        $m = self::getMethod('toDate', $this->object);
+        $this->assertEquals('2015-12-01', $m->invokeArgs($this->object, ['01.12.2015']));
+        $this->assertEquals('2015-01-01', $m->invokeArgs($this->object, ['1.1.2015']));
+        $this->assertEquals(null, $m->invokeArgs($this->object, [null]));
+        $this->assertNotEquals('2015-01-01', $m->invokeArgs($this->object, ['1.1.15']));
     }
 
     /**
      * @covers Kily\Tools1C\ClientBankExchange\Component::toTime
      */
-    public function testToTime() {
-        $m = self::getMethod('toTime',$this->object);
-        $this->assertEquals('00:00:01',$m->invokeArgs($this->object,['00:00:01']));
-        $this->assertEquals('10:10:10',$m->invokeArgs($this->object,['10:10:10.0000']));
-        $this->assertEquals('00:00:00',$m->invokeArgs($this->object,['00:00']));
-        $this->assertEquals(null,$m->invokeArgs($this->object,[null]));
+    public function testToTime()
+    {
+        $m = self::getMethod('toTime', $this->object);
+        $this->assertEquals('00:00:01', $m->invokeArgs($this->object, ['00:00:01']));
+        $this->assertEquals('10:10:10', $m->invokeArgs($this->object, ['10:10:10.0000']));
+        $this->assertEquals('00:00:00', $m->invokeArgs($this->object, ['00:00']));
+        $this->assertEquals(null, $m->invokeArgs($this->object, [null]));
     }
 
     /**
      * @covers Kily\Tools1C\ClientBankExchange\Component::toFloat
      */
-    public function testToFloat() {
-        $m = self::getMethod('toFloat',$this->object);
-        $this->assertEquals(1.1,$m->invokeArgs($this->object,['1.1']));
-        $this->assertEquals(1.1,$m->invokeArgs($this->object,['1,1']));
-        $this->assertEquals(1.100,$m->invokeArgs($this->object,['1,100']));
-        $this->assertEquals(null,$m->invokeArgs($this->object,[null]));
+    public function testToFloat()
+    {
+        $m = self::getMethod('toFloat', $this->object);
+        $this->assertEquals(1.1, $m->invokeArgs($this->object, ['1.1']));
+        $this->assertEquals(1.1, $m->invokeArgs($this->object, ['1,1']));
+        $this->assertEquals(1.100, $m->invokeArgs($this->object, ['1,100']));
+        $this->assertEquals(null, $m->invokeArgs($this->object, [null]));
     }
 
     /**
      * @covers Kily\Tools1C\ClientBankExchange\Component::toInt
      */
-    public function testToInt() {
-        $m = self::getMethod('toInt',$this->object);
-        $this->assertEquals(1,$m->invokeArgs($this->object,['1.1']));
-        $this->assertEquals(1,$m->invokeArgs($this->object,['1,1']));
-        $this->assertEquals(1,$m->invokeArgs($this->object,['1,100']));
-        $this->assertEquals(null,$m->invokeArgs($this->object,[null]));
+    public function testToInt()
+    {
+        $m = self::getMethod('toInt', $this->object);
+        $this->assertEquals(1, $m->invokeArgs($this->object, ['1.1']));
+        $this->assertEquals(1, $m->invokeArgs($this->object, ['1,1']));
+        $this->assertEquals(1, $m->invokeArgs($this->object, ['1,100']));
+        $this->assertEquals(null, $m->invokeArgs($this->object, [null]));
     }
 
-    protected static function getMethod($name,$obj) {
+    protected static function getMethod($name, $obj)
+    {
         $class = new \ReflectionClass(get_class($obj));
         $method = $class->getMethod($name);
         $method->setAccessible(true);
+
         return $method;
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Kily\Tools1C\Tests\ClientBankExchange;
 
 use Kily\Tools1C\ClientBankExchange\Parser;
@@ -10,7 +11,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 {
     protected $object = null;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $dp_item = $this->goodFileProvider()[0];
         $file = $dp_item[0];
 
@@ -21,10 +23,10 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers Kily\Tools1C\ClientBankExchange\Parser::__construct
      * @dataProvider goodFileProvider
      */
-    public function test__constructGood($file,$encoding,$count)
+    public function test__constructGood($file, $encoding, $count)
     {
-        $parser = new Parser($file,$encoding);
-        $this->assertCount($count,$parser->documents);
+        $parser = new Parser($file, $encoding);
+        $this->assertCount($count, $parser->documents);
     }
 
     /**
@@ -34,7 +36,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function test__constructBad($file)
     {
-        $parser = new Parser($file,'cp1251');
+        $parser = new Parser($file, 'cp1251');
     }
 
     /**
@@ -64,7 +66,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testGeneral()
     {
-        $this->assertEquals('Windows',$this->object->general->{'Кодировка'});
+        $this->assertEquals('Windows', $this->object->general->{'Кодировка'});
     }
 
     /**
@@ -72,7 +74,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilter()
     {
-        $this->assertEquals('11.01.2016',$this->object->filter->{'ДатаНачала'});
+        $this->assertEquals('11.01.2016', $this->object->filter->{'ДатаНачала'});
     }
 
     /**
@@ -80,7 +82,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemainings()
     {
-        $this->assertEquals(45329.910000000003,$this->object->remainings->{'НачальныйОстаток'});
+        $this->assertEquals(45329.910000000003, $this->object->remainings->{'НачальныйОстаток'});
     }
 
     /**
@@ -89,7 +91,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function testDocuments()
     {
         $this->assertNotEmpty($this->object->documents);
-        $this->assertEquals(697162,$this->object->documents[0]->{'Номер'});
+        $this->assertEquals(697162, $this->object->documents[0]->{'Номер'});
     }
 
     /**
@@ -98,7 +100,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function testOffsetSet()
     {
         $this->object['general'] = 123;
-        $this->assertEquals(123,$this->object['general']);
+        $this->assertEquals(123, $this->object['general']);
     }
 
     /**
@@ -115,7 +117,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function testOffsetUnset()
     {
         unset($this->object['general']);
-        $this->assertEquals($this->object['general'],null);
+        $this->assertEquals($this->object['general'], null);
     }
 
     /**
@@ -137,16 +139,18 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function goodFileProvider()
     {
         $path = dirname(dirname(__DIR__)).'/resources';
+
         return [
-            [$path.'/one_day.txt','cp1251',13],
-            [$path.'/one_day_utf8.txt','utf-8',13],
-            [$path.'/huge.txt','cp1251',9783],
+            [$path.'/one_day.txt', 'cp1251', 13],
+            [$path.'/one_day_utf8.txt', 'utf-8', 13],
+            [$path.'/huge.txt', 'cp1251', 9783],
         ];
     }
 
     public function badFileProvider()
     {
         $path = dirname(dirname(__DIR__)).'/resources';
+
         return [
             ['/nonexistent'],
         ];

@@ -6,8 +6,8 @@ use Kily\Tools1C\ClientBankExchange\Component;
 
 class GeneralSection extends Component
 {
-
-    static public function fields() {
+    public static function fields()
+    {
         return [
             'ВерсияФормата',
             'Кодировка',
@@ -18,10 +18,14 @@ class GeneralSection extends Component
         ];
     }
 
-    public function __construct($data=[]) {
+    public function __construct($data = [])
+    {
         parent::__construct($data);
-        if($this->data['ДатаСоздания']) $this->data['ДатаСоздания'] = $this->toDate($this->data['ДатаСоздания']);
-        if($this->data['ВремяСоздания']) $this->data['ВремяСоздания'] = $this->toTime($this->data['ВремяСоздания']);
+        if ($this->data['ДатаСоздания']) {
+            $this->data['ДатаСоздания'] = $this->toDate($this->data['ДатаСоздания']);
+        }
+        if ($this->data['ВремяСоздания']) {
+            $this->data['ВремяСоздания'] = $this->toTime($this->data['ВремяСоздания']);
+        }
     }
-
 }

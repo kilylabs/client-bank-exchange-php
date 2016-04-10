@@ -8,7 +8,8 @@ class DocumentSection extends Component
 {
     public $type = null;
 
-    static public function fields() {
+    public static function fields()
+    {
         return [
             'Номер',
             'Дата',
@@ -76,18 +77,27 @@ class DocumentSection extends Component
         ];
     }
 
-    public function __construct($type,$data=[]) {
+    public function __construct($type, $data = [])
+    {
         parent::__construct($data);
         $this->type = $type;
 
-        foreach(['Номер'] as $k)
-            if($this->data[$k]) $this->data[$k] = $this->toInt($this->data[$k]);
+        foreach (['Номер'] as $k) {
+            if ($this->data[$k]) {
+                $this->data[$k] = $this->toInt($this->data[$k]);
+            }
+        }
 
-        foreach(['Дата'] as $k)
-            if($this->data[$k]) $this->data[$k] = $this->toDate($this->data[$k]);
+        foreach (['Дата'] as $k) {
+            if ($this->data[$k]) {
+                $this->data[$k] = $this->toDate($this->data[$k]);
+            }
+        }
 
-        foreach(['Сумма'] as $k)
-            if($this->data[$k]) $this->data[$k] = $this->toFloat($this->data[$k]);
+        foreach (['Сумма'] as $k) {
+            if ($this->data[$k]) {
+                $this->data[$k] = $this->toFloat($this->data[$k]);
+            }
+        }
     }
-
 }
