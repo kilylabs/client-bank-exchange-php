@@ -23,7 +23,7 @@ use Kily\Tools1C\ClientBankExchange\Parser;
 
 require('vendor/autoload.php');
 
-$p = new Parser('tests/resources/huge.txt');
+$p = new Parser('1c_export.txt');
 var_dump($p->general); // general info
 var_dump($p->filter); // selection settings
 var_dump($p->remainings); // to see bank account remainings
