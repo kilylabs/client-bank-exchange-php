@@ -16,5 +16,8 @@
             "email": "ab@dev.kily.ru"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require": {
+        "ext-iconv": "*"
+    }
 }
