@@ -159,4 +159,18 @@ class Parser implements \ArrayAccess
 
         return;
     }
+
+    public function __toString() {
+        $out = '';
+        foreach(array_merge([new Model\StartSection()],$this->result) as $item) {
+            if(is_array($item)) {
+                foreach($item as $_item) {
+                    $out .= $_item->__toString();
+                }
+            } else {
+                $out .= $item->__toString();
+            }
+        }
+        return iconv('UTF-8',$this->encoding,$out."КонецФайла\n");
+    }
 }

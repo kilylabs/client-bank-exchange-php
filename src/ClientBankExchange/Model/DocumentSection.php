@@ -100,4 +100,23 @@ class DocumentSection extends Component
             }
         }
     }
-}
+
+    public function __toString() {
+        $out = [];
+
+        $out['СекцияДокумент'] = $this->type;
+
+        foreach($this->fields() as $f) {
+            if(isset($this->data[$f])) {
+                if(in_array($f,['Дата'])) {
+                    $out[$f] = $this->toDMYDate($this->data[$f]);
+                } else {
+                    $out[$f] = $this->data[$f];
+                }
+            }
+        }
+        $str  = implode("\n",array_map(function($k,$v){return $k.'='.$v;},array_keys($out),$out))."\n";
+        $str .= 'КонецДокумента'."\n";
+        return $str;
+    }
+} 

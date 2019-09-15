@@ -111,14 +111,40 @@ class Component implements \ArrayAccess
 
     protected function toDate($val)
     {
-        $d = \DateTime::createFromFormat('d.m.Y', $val);
+        if(!$val instanceof \DateTime) {
+            if($val) {
+                $d = \DateTime::createFromFormat('d.m.Y', $val);
+            } else {
+                $d = $val;
+            }
+        } else {
+            $d = $val;
+        }
 
         return $d ? $d->format('Y-m-d') : null;
     }
 
     protected function toTime($val)
     {
-        return $val ? (new \DateTime($val))->format('H:i:s') : null;
+        if(!$val instanceof \DateTime) {
+            $d = (new \DateTime($val))->format('H:i:s');
+        } else {
+            if($val) {
+                $d = $val->format('H:i:s');
+            } else {
+                $d = null;
+            }
+        }
+
+        return $d;
+    }
+
+    protected function toDMYDate($str) {
+        return (new \DateTime($str))->format('d.m.Y');
+    }
+
+    protected function toHISDate($str) {
+        return (new \DateTime($str))->format('H:i:s');
     }
 
     protected function toFloat($val)

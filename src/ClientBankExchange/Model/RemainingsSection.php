@@ -35,4 +35,16 @@ class RemainingsSection extends Component
             }
         }
     }
+
+    public function __toString() {
+        $out = [];
+        foreach($this->fields() as $f) {
+            if(in_array($f,['ДатаНачала','ДатаКонца'])) {
+                $out[$f] = $this->toDMYDate($this->data[$f]);
+            } else {
+                $out[$f] = $this->data[$f];
+            }
+        }
+        return "СекцияРасчСчет\n".implode("\n",array_map(function($k,$v){return $k.'='.$v;},array_keys($out),$out))."\nКонецРасчСчет\n";
+    }
 }
