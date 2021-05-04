@@ -85,15 +85,21 @@ class Parser implements \ArrayAccess
     {
         $result = [];
 
-        if (preg_match('/СекцияРасчСчет([\s\S]*?)\sКонецРасчСчет/um', $content, $matches)) {
-            $part = $matches[1];
-            foreach (array_filter(preg_split('/\r?\n/um', $part)) as $line) {
-                list($key, $val) = explode('=', trim($line), 2);
-                $result[$key] = $val;
+        if (preg_match_all('/СекцияРасчСчет([\s\S]*?)\sКонецРасчСчет/um', $content, $matches)) {
+            foreach ($matches[0] as $match) {
+                $doc = [];
+                $part = $match;
+                foreach (array_filter(preg_split('/\r?\n/um', $part)) as $line) {
+                    list($key, $val) = explode('=', trim($line), 2);
+                    $doc[$key] = $val;
+                }
+                unset($doc['СекцияРасчСчет']);
+                unset($doc['КонецРасчСчет']);
+                $result[] = new Model\RemainingsSection($doc);
             }
         }
 
-        return new Model\RemainingsSection($result);
+        return $result;
     }
 
     public function documents($content)

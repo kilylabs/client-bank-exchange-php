@@ -1,5 +1,5 @@
 # 1CClientBankExchange parser
-Парсер формата обмена данными [1CClientBankExchange](http://v8.1c.ru/edi/edi_stnd/100/101.htm) (версии 1.02)
+Парсер формата обмена данными [1CClientBankExchange](http://v8.1c.ru/edi/edi_stnd/100/101.htm) (версии 1.03)
 
 Установка
 ------------
