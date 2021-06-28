@@ -90,11 +90,11 @@ class Parser implements \ArrayAccess
                 $doc = [];
                 $part = $match;
                 foreach (array_filter(preg_split('/\r?\n/um', $part)) as $line) {
-                    list($key, $val) = explode('=', trim($line), 2);
-                    $doc[$key] = $val;
+                    if(strpos($line, '=') !== false) {
+                        list($key, $val) = explode('=', trim($line), 2);
+                        $doc[$key] = $val;
+                    }
                 }
-                unset($doc['СекцияРасчСчет']);
-                unset($doc['КонецРасчСчет']);
                 $result[] = new Model\RemainingsSection($doc);
             }
         }
@@ -111,13 +111,14 @@ class Parser implements \ArrayAccess
                 $doc = [];
                 $part = $match;
                 foreach (array_filter(preg_split('/\r?\n/um', $part)) as $line) {
-                    @list($key, $val) = explode('=', trim($line), 2);
-                    $doc[$key] = $val;
+                    if(strpos($line, '=') !== false) {
+                        list($key, $val) = explode('=', trim($line), 2);
+                        $doc[$key] = $val;
+                    }
                 }
 
                 $type = isset($doc['СекцияДокумент']) ? $doc['СекцияДокумент'] : null;
                 unset($doc['СекцияДокумент']);
-                unset($doc['КонецДокумента']);
 
                 $result[] = new Model\DocumentSection($type, $doc);
             }
