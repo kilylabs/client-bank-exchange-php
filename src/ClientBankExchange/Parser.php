@@ -86,8 +86,8 @@ class Parser implements \ArrayAccess
         $result = null;
 
         if (preg_match_all('/СекцияРасчСчет([\s\S]*?)\sКонецРасчСчет/um', $content, $matches)) {
+            $doc = [];
             foreach ($matches[0] as $match) {
-                $doc = [];
                 $part = $match;
                 foreach (array_filter(preg_split('/\r?\n/um', $part)) as $line) {
                     if (strpos($line, '=') !== false) {
