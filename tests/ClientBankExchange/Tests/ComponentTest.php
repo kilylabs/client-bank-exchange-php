@@ -1,17 +1,19 @@
 <?php
 
-namespace Kily\Tools1C\Tests\ClientBankExchange;
+namespace Tests\Kily\Tools1C\Tests\ClientBankExchange;
 
 use Kily\Tools1C\ClientBankExchange\Component;
+use PHPUnit\Framework\TestCase;
+use Kily\Tools1C\ClientBankExchange\Exception;
 
-class ComponentTest extends \PHPUnit_Framework_TestCase
+class ComponentTest extends TestCase
 {
     /**
      * @var Component
      */
     protected $object;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->object = new Component([]);
     }
@@ -26,19 +28,19 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Kily\Tools1C\ClientBankExchange\Component::__get
-     * @expectedException Kily\Tools1C\ClientBankExchange\Exception
      */
     public function test__get()
     {
+        $this->expectException(Exception::class);
         $this->object->{'Номер'};
     }
 
     /**
      * @covers Kily\Tools1C\ClientBankExchange\Component::__set
-     * @expectedException Kily\Tools1C\ClientBankExchange\Exception
      */
     public function test__set()
     {
+        $this->expectException(Exception::class);
         $this->object->{'Номер'} = 123;
     }
 
@@ -56,14 +58,15 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
     public function test__unset()
     {
         unset($this->object->{'Номер'});
+        $this->assertFalse(isset($this->object->{'Номер'}));
     }
 
     /**
      * @covers Kily\Tools1C\ClientBankExchange\Component::offsetSet
-     * @expectedException Kily\Tools1C\ClientBankExchange\Exception
      */
     public function testOffsetSet()
     {
+        $this->expectException(Exception::class);
         $this->object['Номер'] = 123;
     }
 
@@ -81,14 +84,15 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
     public function testOffsetUnset()
     {
         unset($this->object['Номер']);
+        $this->assertFalse(isset($this->object->{'Номер'}));
     }
 
     /**
      * @covers Kily\Tools1C\ClientBankExchange\Component::offsetGet
-     * @expectedException Kily\Tools1C\ClientBankExchange\Exception
      */
     public function testOffsetGet()
     {
+        $this->expectException(Exception::class);
         $a = $this->object['Номер'];
         var_dump($a);
     }

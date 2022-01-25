@@ -8,7 +8,7 @@
         "psr-4": {"Kily\\Tools1C\\ClientBankExchange\\": "src/ClientBankExchange"}
     },
     "autoload-dev": {
-        "psr-4": {"Kily\\Tools1C\\ClientBankExchange\\Tests\\": "tests/ClientBankExchange/Tests"}
+        "psr-4": {"Tests\\Kily\\Tools1C\\ClientBankExchange\\": "tests/ClientBankExchange/Tests"}
     },
     "authors": [
         {
@@ -19,5 +19,8 @@
     "minimum-stability": "stable",
     "require": {
         "ext-iconv": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.1"
     }
 }

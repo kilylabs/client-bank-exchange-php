@@ -1,4 +1,5 @@
 /vendor/
-all.sh
-tg.sh
-test.php
+/all.sh
+/tg.sh
+/test.php
+/.phpunit.result.cache
