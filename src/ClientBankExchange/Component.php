@@ -126,14 +126,12 @@ class Component implements \ArrayAccess
 
     protected function toTime($val)
     {
-        if(!$val instanceof \DateTime) {
+        if($val === null) return null;
+
+        if(!($val instanceof \DateTime)) {
             $d = (new \DateTime($val))->format('H:i:s');
         } else {
-            if($val) {
-                $d = $val->format('H:i:s');
-            } else {
-                $d = null;
-            }
+            $d = $val->format('H:i:s');
         }
 
         return $d;
@@ -149,7 +147,7 @@ class Component implements \ArrayAccess
 
     protected function toFloat($val)
     {
-        return (float) preg_replace("/[\,]/", '.', $val);
+        return $val === null ? null : (float) preg_replace("/[\,]/", '.', $val);
     }
 
     protected function toInt($val)
