@@ -18,7 +18,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "^7.4",
+        "php": "^8.0",
         "ext-iconv": "*"
     },
     "require-dev": {
