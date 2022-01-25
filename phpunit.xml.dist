@@ -7,6 +7,7 @@
     convertErrorsToExceptions="true"
     convertNoticesToExceptions="true"
     convertWarningsToExceptions="true"
+    convertDeprecationsToExceptions="true"
     testSuiteLoaderFile="phpunit/src/Runner/StandardTestSuiteLoader.php">
     <testsuites>
         <testsuite name="unit">
