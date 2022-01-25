@@ -139,6 +139,19 @@ class ParserTest extends TestCase
         $this->assertNotEmpty($this->object->general);
     }
 
+    /**
+     * @covers Kily\Tools1C\ClientBankExchange\Parser::toArray()
+     */
+    public function testToArray()
+    {
+        $arr = $this->object->toArray();
+        $this->assertArrayHasKey('remainings',$arr);
+        $this->assertArrayHasKey('НачальныйОстаток',$arr['remainings']);
+        $this->assertArrayHasKey('documents',$arr);
+        $this->assertArrayHasKey(0,$arr['documents']);
+        $this->assertArrayHasKey('Номер',$arr['documents'][0]);
+    }
+
     public function goodFileProvider()
     {
         $path = dirname(dirname(__DIR__)).'/resources';

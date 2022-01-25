@@ -180,4 +180,19 @@ class Parser implements \ArrayAccess
         }
         return iconv('UTF-8',$this->encoding,$out."КонецФайла\n");
     }
+
+    public function toArray() {
+        $tmp = [];
+        foreach($this->result as $key=>$data) {
+            if(is_array($data)) {
+                $tmp[$key] = [];
+                foreach($data as $item) {
+                    $tmp[$key][] = $item->toArray();
+                }
+            } else {
+                $tmp[$key] = $data->toArray();
+            }
+        }
+        return $tmp;
+    }
 }

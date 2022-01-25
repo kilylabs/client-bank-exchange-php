@@ -154,4 +154,8 @@ class Component implements \ArrayAccess
     {
         return (int) $val;
     }
+
+    public function toArray() {
+        return $this->data;
+    }
 }
