@@ -112,7 +112,7 @@ class Component implements \ArrayAccess
         unset($this->$offset);
     }
 
-    public function offsetGet($offset): mixed
+    public function offsetGet($offset)
     {
         return $this->$offset;
     }

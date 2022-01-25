@@ -146,7 +146,7 @@ class Parser implements \ArrayAccess
         unset($this->result[$offset]);
     }
 
-    public function offsetGet($offset): mixed
+    public function offsetGet($offset)
     {
         return isset($this->result[$offset]) ? $this->result[$offset] : null;
     }
