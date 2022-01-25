@@ -38,8 +38,10 @@ class Component implements \ArrayAccess
             return $this->data[$name];
         }
 
-        throw new Exception('Property "{class}.{property}" is not defined.',
-            array('{class}' => get_class($this), '{property}' => $name));
+        throw new Exception(
+            'Property "{class}.{property}" is not defined.',
+            ['{class}' => get_class($this), '{property}' => $name]
+        );
     }
 
     public function __set($name, $value)
@@ -52,11 +54,15 @@ class Component implements \ArrayAccess
         }
 
         if (method_exists($this, 'get'.$name)) {
-            throw new Exception('Property "{class}.{property}" is read only.',
-                array('{class}' => get_class($this), '{property}' => $name));
+            throw new Exception(
+                'Property "{class}.{property}" is read only.',
+                ['{class}' => get_class($this), '{property}' => $name]
+            );
         } else {
-            throw new Exception('Property "{class}.{property}" is not defined.',
-                array('{class}' => get_class($this), '{property}' => $name));
+            throw new Exception(
+                'Property "{class}.{property}" is not defined.',
+                ['{class}' => get_class($this), '{property}' => $name]
+            );
         }
     }
 
@@ -80,8 +86,10 @@ class Component implements \ArrayAccess
         } elseif (isset($this->data[$name])) {
             $this->data[$name] = null;
         } elseif (method_exists($this, 'get'.$name)) {
-            throw new Exception('Property "{class}.{property}" is read only.',
-                array('{class}' => get_class($this), '{property}' => $name));
+            throw new Exception(
+                'Property "{class}.{property}" is read only.',
+                ['{class}' => get_class($this), '{property}' => $name]
+            );
         }
     }
 
@@ -111,8 +119,8 @@ class Component implements \ArrayAccess
 
     protected function toDate($val)
     {
-        if(!$val instanceof \DateTime) {
-            if($val) {
+        if (!$val instanceof \DateTime) {
+            if ($val) {
                 $d = \DateTime::createFromFormat('d.m.Y', $val);
             } else {
                 $d = $val;
@@ -126,9 +134,11 @@ class Component implements \ArrayAccess
 
     protected function toTime($val)
     {
-        if($val === null) return null;
+        if ($val === null) {
+            return null;
+        }
 
-        if(!($val instanceof \DateTime)) {
+        if (!($val instanceof \DateTime)) {
             $d = (new \DateTime($val))->format('H:i:s');
         } else {
             $d = $val->format('H:i:s');
@@ -137,11 +147,13 @@ class Component implements \ArrayAccess
         return $d;
     }
 
-    protected function toDMYDate($str) {
+    protected function toDMYDate($str)
+    {
         return (new \DateTime($str))->format('d.m.Y');
     }
 
-    protected function toHISDate($str) {
+    protected function toHISDate($str)
+    {
         return (new \DateTime($str))->format('H:i:s');
     }
 
@@ -155,7 +167,8 @@ class Component implements \ArrayAccess
         return (int) $val;
     }
 
-    public function toArray() {
+    public function toArray()
+    {
         return $this->data;
     }
 }

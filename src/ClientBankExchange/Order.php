@@ -12,7 +12,7 @@ class Order
     protected $filter = null;
     protected $documenits = [];
 
-    public function __construct($owner_rschet,$encoding = 'cp1251')
+    public function __construct($owner_rschet, $encoding = 'cp1251')
     {
         $this->encoding = $encoding;
         $this->start = new Model\StartSection();
@@ -21,12 +21,12 @@ class Order
             'Кодировка'=>'Windows',
             'Отправитель'=>'Бухгалтерия предприятия, редакция 3.0',
             'Получатель'=>'',
-            'ДатаСоздания'=>new \DateTime,
-            'ВремяСоздания'=>new \DateTime,
+            'ДатаСоздания'=>new \DateTime(),
+            'ВремяСоздания'=>new \DateTime(),
         ]);
         $this->filter = new Model\FilterSection([
-            'ДатаНачала'=>new \DateTime,
-            'ДатаКонца'=>new \DateTime,
+            'ДатаНачала'=>new \DateTime(),
+            'ДатаКонца'=>new \DateTime(),
             'РасчСчет'=>$owner_rschet,
             'Документ'=>'Платежное поручение',
         ]);
@@ -34,24 +34,26 @@ class Order
 
     public function addFromArray($arr = [])
     {
-        $this->documents[] = new Model\DocumentSection('Платежное поручение',$arr);
+        $this->documents[] = new Model\DocumentSection('Платежное поручение', $arr);
     }
 
-    public function save($file) {
-        return file_put_contents($file,$this->__toString());
+    public function save($file)
+    {
+        return file_put_contents($file, $this->__toString());
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         $out = '';
-        foreach([$this->start,$this->general,$this->filter,$this->documents] as $item) {
-            if(is_array($item)) {
-                foreach($item as $_item) {
+        foreach ([$this->start,$this->general,$this->filter,$this->documents] as $item) {
+            if (is_array($item)) {
+                foreach ($item as $_item) {
                     $out .= $_item->__toString();
                 }
             } else {
                 $out .= $item->__toString();
             }
         }
-        return iconv('UTF-8',$this->encoding,$out."КонецФайла\n");
+        return iconv('UTF-8', $this->encoding, $out."КонецФайла\n");
     }
 }

@@ -90,7 +90,7 @@ class Parser implements \ArrayAccess
                 $doc = [];
                 $part = $match;
                 foreach (array_filter(preg_split('/\r?\n/um', $part)) as $line) {
-                    if(strpos($line, '=') !== false) {
+                    if (strpos($line, '=') !== false) {
                         list($key, $val) = explode('=', trim($line), 2);
                         $doc[$key] = $val;
                     }
@@ -111,7 +111,7 @@ class Parser implements \ArrayAccess
                 $doc = [];
                 $part = $match;
                 foreach (array_filter(preg_split('/\r?\n/um', $part)) as $line) {
-                    if(strpos($line, '=') !== false) {
+                    if (strpos($line, '=') !== false) {
                         list($key, $val) = explode('=', trim($line), 2);
                         $doc[$key] = $val;
                     }
@@ -162,31 +162,34 @@ class Parser implements \ArrayAccess
             'Undefined property via __get(): '.$name.
             ' in '.$trace[0]['file'].
             ' on line '.$trace[0]['line'],
-            E_USER_NOTICE);
+            E_USER_NOTICE
+        );
 
         return;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         $out = '';
-        foreach(array_merge([new Model\StartSection()],$this->result) as $item) {
-            if(is_array($item)) {
-                foreach($item as $_item) {
+        foreach (array_merge([new Model\StartSection()], $this->result) as $item) {
+            if (is_array($item)) {
+                foreach ($item as $_item) {
                     $out .= $_item->__toString();
                 }
             } else {
                 $out .= $item->__toString();
             }
         }
-        return iconv('UTF-8',$this->encoding,$out."КонецФайла\n");
+        return iconv('UTF-8', $this->encoding, $out."КонецФайла\n");
     }
 
-    public function toArray() {
+    public function toArray()
+    {
         $tmp = [];
-        foreach($this->result as $key=>$data) {
-            if(is_array($data)) {
+        foreach ($this->result as $key=>$data) {
+            if (is_array($data)) {
                 $tmp[$key] = [];
-                foreach($data as $item) {
+                foreach ($data as $item) {
                     $tmp[$key][] = $item->toArray();
                 }
             } else {

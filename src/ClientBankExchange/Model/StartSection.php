@@ -12,7 +12,8 @@ class StartSection extends Component
         ];
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return '1CClientBankExchange'."\n";
     }
 }
