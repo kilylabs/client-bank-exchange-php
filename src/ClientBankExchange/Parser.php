@@ -83,7 +83,7 @@ class Parser implements \ArrayAccess
 
     public function remainings($content)
     {
-        $result = [];
+        $result = null;
 
         if (preg_match_all('/СекцияРасчСчет([\s\S]*?)\sКонецРасчСчет/um', $content, $matches)) {
             foreach ($matches[0] as $match) {
@@ -95,8 +95,8 @@ class Parser implements \ArrayAccess
                         $doc[$key] = $val;
                     }
                 }
-                $result[] = new Model\RemainingsSection($doc);
             }
+            $result = new Model\RemainingsSection($doc);
         }
 
         return $result;
