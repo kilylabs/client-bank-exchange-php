@@ -10,7 +10,7 @@ class Order
     protected $start = null;
     protected $general = null;
     protected $filter = null;
-    protected $documenits = [];
+    protected $documents = [];
 
     public function __construct($owner_rschet, $encoding = 'cp1251')
     {
