@@ -7,7 +7,7 @@ class Parser implements \ArrayAccess
     protected $encoding;
     protected $result;
 
-    public function __construct($file, $encoding = 'cp1251')
+    public function __construct($file, $encoding = false)
     {
         $this->encoding = $encoding;
         $this->result = $this->parse_file($file);
@@ -34,6 +34,9 @@ class Parser implements \ArrayAccess
 
     public function parse($content)
     {
+        if(!$this->encoding){
+            $this->encoding = mb_detect_encoding($content, ['cp1251','UTF-8']);
+        }
         if ($this->encoding) {
             $content = iconv($this->encoding, 'UTF-8', $content);
         }
