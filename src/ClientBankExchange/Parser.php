@@ -7,7 +7,7 @@ class Parser implements \ArrayAccess
     protected $encoding;
     protected $result;
 
-    public function __construct($file, $encoding = 'cp1251')
+    public function __construct($file, $encoding = false)
     {
         $this->encoding = $encoding;
         $this->result = $this->parse_file($file);
@@ -27,6 +27,19 @@ class Parser implements \ArrayAccess
     {
         if (!file_exists($path)) {
             throw new Exception('File does not exists: '.$path);
+        }
+        
+        $fp = @fopen($path, "r");
+        fgets($fp);
+        fgets($fp);
+        $ch = fgets($fp);
+        fclose($fp);
+        $ch = explode('=', $ch);
+        $ch = mb_strtolower(trim($ch[1]));
+        if($ch == 'windows'){
+            $this->encoding = 'cp1251';
+        }elseif($ch == 'dos'){
+            $this->encoding = 'cp866';
         }
 
         return $this->parse(file_get_contents($path));
