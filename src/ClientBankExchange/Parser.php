@@ -28,15 +28,25 @@ class Parser implements \ArrayAccess
         if (!file_exists($path)) {
             throw new Exception('File does not exists: '.$path);
         }
+        
+        $fp = @fopen($path, "r");
+        fgets($fp);
+        fgets($fp);
+        $ch = fgets($fp);
+        fclose($fp);
+        $ch = explode('=', $ch);
+        $ch = mb_strtolower(trim($ch[1]));
+        if($ch == 'windows'){
+            $this->encoding = 'cp1251';
+        }elseif($ch == 'dos'){
+            $this->encoding = 'cp866';
+        }
 
         return $this->parse(file_get_contents($path));
     }
 
     public function parse($content)
     {
-        if(!$this->encoding){
-            $this->encoding = mb_detect_encoding($content, ['cp1251','UTF-8']);
-        }
         if ($this->encoding) {
             $content = iconv($this->encoding, 'UTF-8', $content);
         }
